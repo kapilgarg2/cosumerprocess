@@ -10,8 +10,9 @@ A simple Kafka consumer that forwards messages to callback URLs.
 ├── README.md
 ├── config.py          # Configuration settings
 ├── consumer.py        # Kafka consumer implementation
-├── demo_producer.py   # Demo message producer
-└── mock_server.py     # Mock callback server
+├── demo_mocked.py     # Mocked demo (no Kafka required)
+├── mock_server.py     # Mock callback server
+└── env.example        # Environment variables template
 ```
 
 ## Features
@@ -20,20 +21,25 @@ A simple Kafka consumer that forwards messages to callback URLs.
 - Forwards responses to callback URLs
 - Simple error handling and logging
 - Configurable through environment variables
-- Includes demo producer and mock server
+- Includes mocked demo (no Kafka required)
 
 ## Setup
 
-1. Install dependencies:
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd kafka-callback-consumer
+```
+
+2. Install dependencies:
 ```bash
 pip install -r requirements.txt
 ```
 
-2. Create a `.env` file with the following configuration:
-```
-KAFKA_BOOTSTRAP_SERVERS=localhost:9092
-KAFKA_TOPIC=demo-topic
-KAFKA_GROUP_ID=consumer-group
+3. Set up environment variables:
+```bash
+cp env.example .env
+# Edit .env with your configuration
 ```
 
 ## Running the Demo
@@ -43,21 +49,26 @@ KAFKA_GROUP_ID=consumer-group
 python mock_server.py
 ```
 
-2. Start the Kafka consumer:
+2. In a new terminal, run the mocked demo:
 ```bash
-python consumer.py
-```
-
-3. In a new terminal, start the demo producer:
-```bash
-python demo_producer.py
+python demo_mocked.py
 ```
 
 The demo will:
-1. Generate random messages with callback URLs
-2. Send them to Kafka
-3. Consumer will read messages and forward to mock server
+1. Generate random messages every 2 seconds
+2. Simulate consuming these messages
+3. Send callbacks to the mock server
 4. Mock server will log received callbacks
+
+## Running with Real Kafka
+
+If you have Kafka running:
+
+1. Update `.env` with your Kafka configuration
+2. Start the consumer:
+```bash
+python consumer.py
+```
 
 ## Message Format
 
@@ -86,4 +97,31 @@ The consumer includes error handling for:
 - Failed HTTP requests to callback URLs
 - Kafka connection issues
 
-All errors are logged for debugging purposes. 
+All errors are logged for debugging purposes.
+
+## Development
+
+1. Create a virtual environment:
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
+
+2. Install development dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+3. Make your changes and commit:
+```bash
+git add .
+git commit -m "Your commit message"
+```
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request 
