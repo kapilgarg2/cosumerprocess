@@ -54,10 +54,12 @@ class KafkaConsumer:
                 future = self.executor.submit(self.process_single_message, message_data)
                 futures.append(future)
 
-            #wait for all futures to complete
+            # Wait for all futures to complete and handle any errors
             for future in futures:
-                try:    
-                    future.result()
+                try:
+                    future.result(timeout=30)  # Add timeout to prevent hanging
+                except TimeoutError:
+                    logger.error("Message processing timed out after 30 seconds")
                 except Exception as e:
                     logger.error(f"Error processing message: {str(e)}")
 
