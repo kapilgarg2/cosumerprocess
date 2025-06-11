@@ -171,7 +171,7 @@ services:
     depends_on:
       - kafka
     environment:
-      - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
+      - KAFKA_BOOTSTRAP_SERVERS=172.19.0.4:9092
       - KAFKA_TOPIC=demo-topic
       - KAFKA_GROUP_ID=consumer-group
       - MAX_MESSAGES_PER_BATCH=10
