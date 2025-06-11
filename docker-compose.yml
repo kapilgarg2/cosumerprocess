@@ -1,0 +1,187 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo:latest
+    container_name: mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - localnet
+
+  # MongoDB Web UI - Mongo Express
+  mongo-express:
+    image: mongo-express:latest
+    container_name: mongo-express
+    restart: always
+    ports:
+      - "8081:8081"
+    environment:
+      ME_CONFIG_MONGODB_SERVER: mongodb
+      ME_CONFIG_MONGODB_PORT: 27017
+      ME_CONFIG_BASICAUTH_USERNAME: admin
+      ME_CONFIG_BASICAUTH_PASSWORD: admin123
+      ME_CONFIG_MONGODB_ENABLE_ADMIN: 'true'
+    depends_on:
+      - mongo
+    networks:
+      - localnet
+
+  # Alternative MongoDB UI - AdminMongo
+  adminmongo:
+    image: adicom/admin-mongo:latest
+    container_name: adminmongo
+    restart: always
+    ports:
+      - "1234:1234"
+    environment:
+      - HOST=0.0.0.0
+      - DB_HOST=mongodb
+      - DB_PORT=27017
+    depends_on:
+      - mongo
+    networks:
+      - localnet
+
+  # flask-app:
+  #   build: .
+  #   container_name: flask-app
+  #   restart: always
+  #   depends_on:
+  #     - mongo
+  #   environment:
+  #     MONGO_URI: mongodb://mongodb:27017/consent  # Update URI here
+  #   ports:
+  #     - "5000:5000"
+  #   volumes:
+  #     - .:/app
+    
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    container_name: zookeeper
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - "2181:2181"
+    networks:
+      - localnet
+
+  kafka:
+    image: confluentinc/cp-kafka:latest
+    container_name: kafka
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      # Three listeners: INTERNAL (for container-to-container), LOCAL (for host machine), DOCKER (for other containers)
+      KAFKA_LISTENERS: INTERNAL://kafka:9092,LOCAL://0.0.0.0:29092,DOCKER://0.0.0.0:9093
+      # How to advertise these listeners
+      KAFKA_ADVERTISED_LISTENERS: INTERNAL://kafka:9092,LOCAL://localhost:29092,DOCKER://host.docker.internal:9093
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,LOCAL:PLAINTEXT,DOCKER:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    ports:
+      - "29092:29092"  # For local host applications
+      - "9093:9093"    # For Docker containers
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - localnet
+
+  # flink-jobmanager:
+  #   image: flink:1.16.0
+  #   container_name: flink-jobmanager
+  #   hostname: flink-jobmanager
+  #   environment:
+  #     - JOB_MANAGER_RPC_ADDRESS=flink-jobmanager
+  #     - |
+  #       FLINK_PROPERTIES=
+  #       jobmanager.rpc.address: flink-jobmanager
+  #       jobmanager.memory.process.size: 1600m
+  #       taskmanager.memory.process.size: 1728m
+  #       taskmanager.numberOfTaskSlots: 4
+  #   ports:
+  #     - "8081:8081"  # Flink Web UI
+  #     - "6123:6123"  # RPC Communication
+  #     - "6124:6124"  # Data Transfer
+  #   command: jobmanager
+  #   networks:
+  #     - localnet
+
+  # flink-taskmanager:
+  #   image: flink:1.16.0
+  #   container_name: flink-taskmanager
+  #   depends_on:
+  #     - flink-jobmanager
+  #   environment:
+  #     - JOB_MANAGER_RPC_ADDRESS=flink-jobmanager
+  #     - |
+  #       FLINK_PROPERTIES=
+  #       jobmanager.rpc.address: flink-jobmanager
+  #       taskmanager.memory.process.size: 1728m
+  #       taskmanager.numberOfTaskSlots: 4
+  #   command: taskmanager
+  #   networks:
+  #     - localnet
+
+  # victoriametrics:
+  #   image: victoriametrics/victoria-metrics
+  #   container_name: victoriametrics
+  #   ports:
+  #     - "8428:8428"
+  #   networks:
+  #     - localnet
+
+  # grafana:
+  #   image: grafana/grafana:latest
+  #   container_name: grafana
+  #   environment:
+  #     - GF_SECURITY_ADMIN_PASSWORD=admin
+  #   ports:
+  #     - "3000:3000"
+  #   depends_on:
+  #     - victoriametrics
+  #   networks:
+  #     - localnet
+
+  kafka-ui:
+    image: provectuslabs/kafka-ui:latest
+    container_name: kafka-ui
+    ports:
+      - "8080:8080"
+    environment:
+      - KAFKA_CLUSTERS_0_NAME=local-cluster
+      - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=kafka:9092
+      - KAFKA_CLUSTERS_0_METRICS_PORT=9997
+    depends_on:
+      - kafka
+    networks:
+      - localnet
+  
+  # Kafka Consumer Service
+  kafka-consumer:
+    build: .
+    container_name: kafka-consumer
+    restart: always
+    depends_on:
+      - kafka
+    environment:
+      - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
+      - KAFKA_TOPIC=demo-topic
+      - KAFKA_GROUP_ID=consumer-group
+      - MAX_MESSAGES_PER_BATCH=10
+      - CONSUMER_TIMEOUT=5
+    networks:
+      - localnet
+
+networks:
+  localnet:
+    driver: bridge
+
+volumes:
+  mongo-data:
