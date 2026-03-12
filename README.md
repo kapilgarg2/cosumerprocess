@@ -1,79 +1,111 @@
 # Hi 👋 I'm Kapil Garg
 
-💻 Backend Developer  
-🚀 Passionate about scalable systems & APIs  
-📦 Working with Python, Flask, MongoDB, Distributed Systems  
-⚡ Interested in System Design & Backend Architecture
+💻 Backend Engineer | API Developer | System Design Enthusiast  
+🚀 Passionate about building scalable backend systems and distributed architectures.
 
 ---
 
-## 🚀 About Me
+# 🚀 About Me
 
-- 🔭 Currently working on **Warehouse Management Systems**
-- 🌱 Exploring **System Design & Distributed Architecture**
-- 💬 Ask me about **Python, APIs, Backend Development**
-- 📫 Reach me: kapilgarg2@gmail.com
+- 💻 Backend Engineer focused on scalable systems
+- 🧠 Interested in **System Design & Distributed Systems**
+- ⚙️ Experienced in **REST APIs, Microservices, and Backend Architectures**
+- 📦 Working with **Python, Java, Databases, and Cloud Technologies**
+- 🔍 Exploring high-performance backend systems
 
 ---
 
-## 🛠️ Tech Stack
+# 🛠 Tech Stack
 
-### Languages
-![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+## 💻 Languages
+![C](https://img.shields.io/badge/C-00599C?style=for-the-badge&logo=c)
+![C++](https://img.shields.io/badge/C++-00599C?style=for-the-badge&logo=cplusplus)
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python)
+![Java](https://img.shields.io/badge/Java-red?style=for-the-badge&logo=openjdk)
 
-### Backend
+---
+
+## ⚙️ Backend Frameworks
+![Spring Boot](https://img.shields.io/badge/SpringBoot-6DB33F?style=for-the-badge&logo=springboot)
 ![Flask](https://img.shields.io/badge/Flask-black?style=for-the-badge&logo=flask)
+![Django](https://img.shields.io/badge/Django-darkgreen?style=for-the-badge&logo=django)
 
-### Databases
+---
+
+## 🗄 Databases
 ![MongoDB](https://img.shields.io/badge/MongoDB-green?style=for-the-badge&logo=mongodb)
-
-### Tools
-![Docker](https://img.shields.io/badge/Docker-blue?style=for-the-badge&logo=docker)
-
----
-
-# 📊 GitHub Stats
-
-![Kapil's GitHub stats](https://github-readme-stats.vercel.app/api?username=kapilgarg2&show_icons=true&theme=radical)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-blue?style=for-the-badge&logo=postgresql)
+![DynamoDB](https://img.shields.io/badge/DynamoDB-blue?style=for-the-badge&logo=amazondynamodb)
 
 ---
 
-# 📈 GitHub Activity Graph
+# 📊 GitHub Statistics (All Time)
 
-![Kapil's github activity graph](https://github-readme-activity-graph.vercel.app/graph?username=kapilgarg2)
+![Kapil GitHub Stats](https://github-readme-stats.vercel.app/api?username=kapilgarg2&show_icons=true&include_all_commits=true&count_private=true)
+
+This includes:
+
+- Total commits
+- Pull requests
+- Issues
+- Stars
+- Contributions
+- Private + Public repositories
 
 ---
 
-# 🔥 Streak Stats
+# 🔥 GitHub Streak
 
 ![GitHub Streak](https://github-readme-streak-stats.herokuapp.com/?user=kapilgarg2)
+
+Shows coding consistency and contribution streak.
+
+---
+
+# 📈 Contribution Activity Graph
+
+![Kapil Activity Graph](https://github-readme-activity-graph.vercel.app/graph?username=kapilgarg2)
+
+Displays commits and contribution trends across time.
 
 ---
 
 # 📚 Most Used Languages
 
-![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=kapilgarg2&layout=compact)
+![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=kapilgarg2&layout=compact)
+
+Shows language distribution across repositories.
 
 ---
 
-# 🏆 GitHub Trophies
+# 🏆 GitHub Achievements
 
-![trophy](https://github-profile-trophy.vercel.app/?username=kapilgarg2)
+![GitHub Trophies](https://github-profile-trophy.vercel.app/?username=kapilgarg2)
+
+Achievements include commits, PRs, repositories, and activity milestones.
+
+---
+
+# 📅 Yearly Development Focus
+
+| Year | Focus |
+|-----|------|
+| 2026 | Backend architecture & scalable system design |
+| 2025 | API development and backend services |
+| 2024 | Core development and repository contributions |
 
 ---
 
 # 👀 Profile Views
 
-![](https://komarev.com/ghpvc/?username=kapilgarg2)
+![Profile Views](https://komarev.com/ghpvc/?username=kapilgarg2)
 
 ---
 
 # 🌐 Connect With Me
 
-- LinkedIn
-- Email
-- GitHub
+- GitHub: https://github.com/kapilgarg2
 
 ---
 
-⭐️ From [kapilgarg2](https://github.com/kapilgarg2)
+⭐️ From **Kapil Garg**
